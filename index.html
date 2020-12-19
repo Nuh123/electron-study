@@ -8,5 +8,17 @@
 </head>
 <body>
     <p>hello world</p>
+    <button class="btn"> 点击查看效果</button>
+    <div class="content"></div>
+    <script>
+        let fs = require("fs")
+        let btn = document.querySelector(".btn")
+        let content = document.querySelector(".content")
+        btn.onclick = function() {
+            fs.readFile('test.txt',(err,data) => {
+                content.innerHTML = data
+            })
+        }
+    </script>
 </body>
 </html>
