@@ -143,6 +143,13 @@
             console.log(err);
           });
       };
+      //   断网提示
+      window.addEventListener("online", function () {
+        alert("网络连接上");
+      });
+      window.addEventListener("offline", function () {
+        alert("网络断开");
+      });
     </script>
   </body>
 </html>
