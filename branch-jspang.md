@@ -78,4 +78,11 @@ webprefer
 1. 嵌入网页类似于在网页中使用ifram
 2. 需要使用`BrowserView`模块，是**主进程**中的模块
 3. `BrowserView`与`Browserwindow`类似，不过view需要依赖window存在，具体差别看代码处。
+4. 一个现象，BrowserView的层级似乎比控制台的高，导致窗口宽度不够时，控制台被覆盖。
+
+## 打开子窗口
+
+1. 使用`window.open()`即可，具体看代码。
+2. 这里的重点在于`window.open()`和`new BrowserWindow()`的区别，前者打开的是有隶属关系的，后者是没有的。但这个隶属关系似乎在用户行为层面没有啥差别。
+3. 目前只了解到这些，有待后期拓展。
 

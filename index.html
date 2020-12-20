@@ -11,6 +11,7 @@
     <button class="btn"> 点击查看效果</button>
     <div class="content"></div>
     <button class="remoteBtn">remote使用按钮</button>
+    <button class="sonWin">打开子窗口</button>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
         // 体会在渲染进程中使用node
@@ -62,6 +63,13 @@
             let href = aTag.getAttribute("href")
             // 最重要的
             shell.openExternal(href)
+        }
+
+
+        // 打开子窗口
+        let sonBtn = document.querySelector(".sonWin")
+        sonBtn.onclick = function() {
+            window.open("https://jspang.com")
         }
     </script>
 </body>
