@@ -14,6 +14,7 @@
     <button class="sonWin">打开子窗口</button>
     <button class="openBtn">打开文件选择窗口</button>
     <img class="imgContent" style="width: 100%" />
+    <button class="saveBtn">保存文件</button>
     <div class="childrenContent"></div>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
@@ -97,6 +98,23 @@
             let img = document.querySelector(".imgContent");
             console.log(res);
             img.setAttribute("src", res.filePaths[0]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
+      //   文件保存对话框
+      const saveBtn = document.querySelector(".saveBtn");
+      saveBtn.onclick = function () {
+        dialog
+          .showSaveDialog({
+            titel: "自定义保存文件",
+          })
+          .then((res) => {
+            console.log(res);
+            // 这个地方比较草，node的文件写入处理的不完善。
+            fs.writeFileSync(res.filePath, "测试保存文件");
           })
           .catch((err) => {
             console.log(err);

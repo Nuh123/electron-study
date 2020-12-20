@@ -99,3 +99,7 @@
 
 1. API 是`dialog.showOpenDialog()`,其中两个参数，第一个是窗口设置(具体格式见代码或官方文档)，第二个是**回调函数**,是 then 形式。
 2. dialog 是主线程模块，也就是需要使用 **remote**
+
+## 保存对话框
+
+1. 和文件选择对话框类似 API 为 `dialog.showSaveDialog()`参数形式也一样。
