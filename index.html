@@ -11,6 +11,7 @@
     <button class="btn"> 点击查看效果</button>
     <div class="content"></div>
     <button class="remoteBtn">remote使用按钮</button>
+    <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
         // 体会在渲染进程中使用node
         let fs = require("fs")
@@ -51,6 +52,17 @@
             // 菜单实例的方法，将该实例作为上下文菜单弹出。
             r.popup({window:remote.getCurrentWindow()})
         })
+
+        // 在浏览器中打开网页
+        const {shell} = require("electron")
+        const aTag = document.querySelector(".aTag")
+        aTag.onclick = function (e) {
+            // 阻止a链接的默认事件
+            e.preventDefault()
+            let href = aTag.getAttribute("href")
+            // 最重要的
+            shell.openExternal(href)
+        }
     </script>
 </body>
 </html>
