@@ -1,7 +1,6 @@
  const electron= require("electron")
- const {app,BrowserWindow,Menu} = electron
-
-// 引入两个模块，分别对应窗口和应用
+ const {app,BrowserWindow,Menu,BrowserView} = electron
+// 引入模块，分别对应用和窗口、菜单、浏览器视图
 
 let mainWin = null
 
@@ -49,6 +48,12 @@ app.on("ready", () => {
         },
         
     })
+    // 嵌入网页
+    let view = new BrowserView()
+    mainWin.setBrowserView(view)
+    view.setBounds({x:0,y:200,width:1200,height:800})
+    view.webContents.loadURL("https://jspang.com")
+    
     // 代码直接开启开发者工具
     mainWin.webContents.openDevTools()
     // 实例化后加载对应的页面
