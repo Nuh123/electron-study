@@ -12,6 +12,7 @@
     <div class="content"></div>
     <button class="remoteBtn">remote使用按钮</button>
     <script>
+        // 体会在渲染进程中使用node
         let fs = require("fs")
         let btn = document.querySelector(".btn")
         let content = document.querySelector(".content")
@@ -20,6 +21,8 @@
                 content.innerHTML = data
             })
         }
+
+        // 体会使用remote模块
         let remoteBtn = document.querySelector(".remoteBtn")
         const electron=  require("electron")
         console.log('渲染进程中的模块 \n',electron)
@@ -31,6 +34,23 @@
                 newWin.on("close", () => newWin = null)
             }
         }
+
+
+        // 右键菜单
+        const remote = electron.remote 
+        let rightTem = [
+            {label:'右键1'},
+            {label:'右键2'}
+        ]
+        // 菜单的静态方法，用于构建MenuItem。
+        let r = remote.Menu.buildFromTemplate(rightTem)
+        window.addEventListener("contextmenu",function(e) {
+            console.log(1111111)
+            // 阻止默认事件
+            e.preventDefault()
+            // 菜单实例的方法，将该实例作为上下文菜单弹出。
+            r.popup({window:remote.getCurrentWindow()})
+        })
     </script>
 </body>
 </html>

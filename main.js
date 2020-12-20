@@ -8,7 +8,7 @@ let mainWin = null
 // 应用监听准备好事件
 app.on("ready", () => {
     console.log('主进程中的模块 \n',electron)
-    // 实例化窗口
+    // 自定义菜单
     let menuTem = [
         {
             label: "主菜单一",
@@ -33,8 +33,11 @@ app.on("ready", () => {
             ]
         },
     ]
+    // 菜单的静态方法，用于构建MenuItem。
     let m = Menu.buildFromTemplate(menuTem)
+    // 菜单的静态方法，将菜单实例设置为菜单栏。
     Menu.setApplicationMenu(m)
+    // 实例化窗口
     mainWin = new BrowserWindow({
         width:400,
         height:600,
@@ -46,6 +49,8 @@ app.on("ready", () => {
         },
         
     })
+    // 代码直接开启开发者工具
+    mainWin.webContents.openDevTools()
     // 实例化后加载对应的页面
     mainWin.loadFile("index.html")
     // 监听关闭事件
