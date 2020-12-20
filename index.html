@@ -15,6 +15,7 @@
     <button class="openBtn">打开文件选择窗口</button>
     <img class="imgContent" style="width: 100%" />
     <button class="saveBtn">保存文件</button>
+    <button class="msgBtn">消息对话框</button>
     <div class="childrenContent"></div>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
@@ -115,6 +116,28 @@
             console.log(res);
             // 这个地方比较草，node的文件写入处理的不完善。
             fs.writeFileSync(res.filePath, "测试保存文件");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
+      //   消息对话框
+      const msgBtn = document.querySelector(".msgBtn");
+      msgBtn.onclick = function () {
+        dialog
+          .showMessageBox({
+            //   消息对话框类型 可选 有none、 indo、 error、 question、waring、
+            type: "warning",
+            //  标题
+            titel: "自定义消息对话框",
+            // 内容 在这里是必填
+            message: "自定义消息对话框内容",
+            // 选项组，数组类型，在监听函数里拿到的结果依赖于此顺序
+            buttons: ["按钮1", "按钮2"],
+          })
+          .then((res) => {
+            console.log(res);
           })
           .catch((err) => {
             console.log(err);
