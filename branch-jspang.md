@@ -86,3 +86,9 @@ webprefer
 2. 这里的重点在于`window.open()`和`new BrowserWindow()`的区别，前者打开的是有隶属关系的，后者是没有的。但这个隶属关系似乎在用户行为层面没有啥差别。
 3. 目前只了解到这些，有待后期拓展。
 
+## 向父窗口传递信息
+
+1. 使用 `window.opener.postMessage(msg,targetOrigin)`API 其中**msg**指要传递的信息，**targetOrigin** 指消息接收方window.opener()指当前窗口的**父窗口们**（这句存疑，需验证），不指定消息接受方则发送给所有父窗口。
+2. 具体使用见代码
+3. 视频里没讲的，反过来父窗口向子窗口传递也可以用类似的API，只不过应该是使用window.open打开的窗口作为接收方（这句存疑，需验证）。
+4. 具体的使用还是得看window对象的文档。

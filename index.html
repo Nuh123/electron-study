@@ -12,6 +12,7 @@
     <div class="content"></div>
     <button class="remoteBtn">remote使用按钮</button>
     <button class="sonWin">打开子窗口</button>
+    <div class="childrenContent"></div>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
         // 体会在渲染进程中使用node
@@ -69,8 +70,15 @@
         // 打开子窗口
         let sonBtn = document.querySelector(".sonWin")
         sonBtn.onclick = function() {
-            window.open("https://jspang.com")
+            // window.open("https://jspang.com")
+            window.open("./children.html")
         }
+
+        // 接收子窗口消息
+        window.addEventListener("message",function(res) {
+            let content = document.querySelector(".childrenContent")
+            content.innerHTML = JSON.stringify(res)
+        })
     </script>
 </body>
 </html>

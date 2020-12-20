@@ -38,7 +38,7 @@ app.on("ready", () => {
     Menu.setApplicationMenu(m)
     // 实例化窗口
     mainWin = new BrowserWindow({
-        width:400,
+        width:800,
         height:600,
         webPreferences:{ 
             // 渲染进程中允许使用node
@@ -53,7 +53,7 @@ app.on("ready", () => {
     mainWin.setBrowserView(view)
     view.setBounds({x:0,y:200,width:1200,height:800})
     view.webContents.loadURL("https://jspang.com")
-    
+
     // 代码直接开启开发者工具
     mainWin.webContents.openDevTools()
     // 实例化后加载对应的页面
