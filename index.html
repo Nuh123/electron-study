@@ -1,84 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>electtron 学习第一节</title>
-</head>
-<body>
+  </head>
+  <body>
     <p>hello world</p>
-    <button class="btn"> 点击查看效果</button>
+    <button class="btn">点击查看效果</button>
     <div class="content"></div>
     <button class="remoteBtn">remote使用按钮</button>
     <button class="sonWin">打开子窗口</button>
     <div class="childrenContent"></div>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
-        // 体会在渲染进程中使用node
-        let fs = require("fs")
-        let btn = document.querySelector(".btn")
-        let content = document.querySelector(".content")
-        btn.onclick = function() {
-            fs.readFile('test.txt',(err,data) => {
-                content.innerHTML = data
-            })
-        }
+      // 体会在渲染进程中使用node
+      let fs = require("fs");
+      let btn = document.querySelector(".btn");
+      let content = document.querySelector(".content");
+      btn.onclick = function () {
+        fs.readFile("test.txt", (err, data) => {
+          content.innerHTML = data;
+        });
+      };
 
-        // 体会使用remote模块
-        let remoteBtn = document.querySelector(".remoteBtn")
-        const electron=  require("electron")
-        console.log('渲染进程中的模块 \n',electron)
-        const BrowserWindow = electron.remote.BrowserWindow
-        window.onload = function(){
-            remoteBtn.onclick = function() {
-                let newWin = new BrowserWindow({width: 200,height: 200})
-                newWin.loadFile('test.html')
-                newWin.on("close", () => newWin = null)
-            }
-        }
+      // 体会使用remote模块
+      let remoteBtn = document.querySelector(".remoteBtn");
+      const electron = require("electron");
+      console.log("渲染进程中的模块 \n", electron);
+      const BrowserWindow = electron.remote.BrowserWindow;
+      window.onload = function () {
+        remoteBtn.onclick = function () {
+          let newWin = new BrowserWindow({ width: 200, height: 200 });
+          newWin.loadFile("test.html");
+          newWin.on("close", () => (newWin = null));
+        };
+      };
 
+      // 右键菜单
+      const remote = electron.remote;
+      let rightTem = [{ label: "右键1" }, { label: "右键2" }];
+      // 菜单的静态方法，用于构建MenuItem。
+      let r = remote.Menu.buildFromTemplate(rightTem);
+      window.addEventListener("contextmenu", function (e) {
+        console.log(1111111);
+        // 阻止默认事件
+        e.preventDefault();
+        // 菜单实例的方法，将该实例作为上下文菜单弹出。
+        r.popup({ window: remote.getCurrentWindow() });
+      });
 
-        // 右键菜单
-        const remote = electron.remote 
-        let rightTem = [
-            {label:'右键1'},
-            {label:'右键2'}
-        ]
-        // 菜单的静态方法，用于构建MenuItem。
-        let r = remote.Menu.buildFromTemplate(rightTem)
-        window.addEventListener("contextmenu",function(e) {
-            console.log(1111111)
-            // 阻止默认事件
-            e.preventDefault()
-            // 菜单实例的方法，将该实例作为上下文菜单弹出。
-            r.popup({window:remote.getCurrentWindow()})
-        })
+      // 在浏览器中打开网页
+      const { shell } = require("electron");
+      const aTag = document.querySelector(".aTag");
+      aTag.onclick = function (e) {
+        // 阻止a链接的默认事件
+        e.preventDefault();
+        let href = aTag.getAttribute("href");
+        // 最重要的
+        shell.openExternal(href);
+      };
 
-        // 在浏览器中打开网页
-        const {shell} = require("electron")
-        const aTag = document.querySelector(".aTag")
-        aTag.onclick = function (e) {
-            // 阻止a链接的默认事件
-            e.preventDefault()
-            let href = aTag.getAttribute("href")
-            // 最重要的
-            shell.openExternal(href)
-        }
+      // 打开子窗口
+      let sonBtn = document.querySelector(".sonWin");
+      sonBtn.onclick = function () {
+        // window.open("https://jspang.com")
+        window.open("./children.html");
+      };
 
-
-        // 打开子窗口
-        let sonBtn = document.querySelector(".sonWin")
-        sonBtn.onclick = function() {
-            // window.open("https://jspang.com")
-            window.open("./children.html")
-        }
-
-        // 接收子窗口消息
-        window.addEventListener("message",function(res) {
-            let content = document.querySelector(".childrenContent")
-            content.innerHTML = JSON.stringify(res)
-        })
+      // 接收子窗口消息
+      window.addEventListener("message", function (res) {
+        let content = document.querySelector(".childrenContent");
+        content.innerHTML = JSON.stringify(res);
+      });
     </script>
-</body>
+  </body>
 </html>

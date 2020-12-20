@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>子页面</title>
-</head>
-<body>
+  </head>
+  <body>
     <h2>我是子窗口</h2>
     <button class="btn">点击向父窗口发送</button>
     <script>
-        let btn = this.document.querySelector(".btn")
-        btn.onclick = function() {
-            window.opener.postMessage('我是子窗口消息')
-        }
+      let btn = this.document.querySelector(".btn");
+      btn.onclick = function () {
+        window.opener.postMessage("我是子窗口消息");
+      };
     </script>
-</body>
+  </body>
 </html>

@@ -1,12 +1,12 @@
- const electron= require("electron")
- const {app,BrowserWindow,Menu,BrowserView} = electron
+const electron = require("electron")
+const { app, BrowserWindow, Menu, BrowserView } = electron
 // 引入模块，分别对应用和窗口、菜单、浏览器视图
 
 let mainWin = null
 
 // 应用监听准备好事件
 app.on("ready", () => {
-    console.log('主进程中的模块 \n',electron)
+    console.log('主进程中的模块 \n', electron)
     // 自定义菜单
     let menuTem = [
         {
@@ -15,20 +15,20 @@ app.on("ready", () => {
                 {
                     label: '子菜单1-1',
                     accelerator: "ctrl+g",
-                    click:  () => {
-                        win = new BrowserWindow({width:200,height:200})
+                    click: () => {
+                        win = new BrowserWindow({ width: 200, height: 200 })
                         win.loadFile("test.html")
-                        win.on("close",() => {win = null})
+                        win.on("close", () => { win = null })
                     }
                 },
-                {label: '子菜单1-2'}
+                { label: '子菜单1-2' }
             ]
         },
         {
             label: "主菜单二",
             submenu: [
-                {label: '子菜单2-1'},
-                {label: '子菜单2-2'}
+                { label: '子菜单2-1' },
+                { label: '子菜单2-2' }
             ]
         },
     ]
@@ -38,20 +38,20 @@ app.on("ready", () => {
     Menu.setApplicationMenu(m)
     // 实例化窗口
     mainWin = new BrowserWindow({
-        width:800,
-        height:600,
-        webPreferences:{ 
+        width: 800,
+        height: 600,
+        webPreferences: {
             // 渲染进程中允许使用node
-            nodeIntegration:true,
+            nodeIntegration: true,
             // 渲染进程中允许使用remote模块
-            enableRemoteModule:true,
+            enableRemoteModule: true,
         },
-        
+
     })
     // 嵌入网页
     let view = new BrowserView()
     mainWin.setBrowserView(view)
-    view.setBounds({x:0,y:200,width:1200,height:800})
+    view.setBounds({ x: 0, y: 200, width: 1200, height: 800 })
     view.webContents.loadURL("https://jspang.com")
 
     // 代码直接开启开发者工具
@@ -59,7 +59,7 @@ app.on("ready", () => {
     // 实例化后加载对应的页面
     mainWin.loadFile("index.html")
     // 监听关闭事件
-    mainWin.on("closed",() => {
+    mainWin.on("closed", () => {
         mainWin = null
     })
 })
