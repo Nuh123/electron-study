@@ -15,6 +15,7 @@ app.on("ready", () => {
             submenu: [
                 {
                     label: '子菜单1-1',
+                    accelerator: "ctrl+g",
                     click:  () => {
                         win = new BrowserWindow({width:200,height:200})
                         win.loadFile("test.html")
@@ -23,7 +24,7 @@ app.on("ready", () => {
                 },
                 {label: '子菜单1-2'}
             ]
-        },bro
+        },
         {
             label: "主菜单二",
             submenu: [
