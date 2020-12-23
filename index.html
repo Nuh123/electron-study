@@ -16,6 +16,7 @@
     <img class="imgContent" style="width: 100%" />
     <button class="saveBtn">保存文件</button>
     <button class="msgBtn">消息对话框</button>
+    <button class="notifyBtn">底部通知</button>
     <div class="childrenContent"></div>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
@@ -150,6 +151,16 @@
       window.addEventListener("offline", function () {
         alert("网络断开");
       });
+
+      //   底部消息通知
+      const notBtn = document.querySelector(".notifyBtn");
+      notBtn.onclick = function () {
+        // 已第一个参数为准，
+        new window.Notification(" 自定义通知1", {
+          titel: "自定义通知2",
+          body: "自定义通知内容",
+        });
+      };
     </script>
   </body>
 </html>
