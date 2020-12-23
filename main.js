@@ -1,5 +1,5 @@
 const electron = require("electron")
-const { app, BrowserWindow, Menu, BrowserView } = electron
+const { app, BrowserWindow, Menu, BrowserView, globalShortcut } = electron
 // 引入模块，分别对应用和窗口、菜单、浏览器视图
 
 let mainWin = null
@@ -48,6 +48,15 @@ app.on("ready", () => {
         },
 
     })
+
+    // 快捷键注册
+    globalShortcut.register("ctrl+e", () => {
+        mainWin.loadURL("http://baidu.com")
+    })
+    // 快捷键检测
+    let isRegister = globalShortcut.isRegistered("ctrl+e") ? "register success" : "register fail"
+    console.log('-------------------', isRegister)
+
     // 嵌入网页
     let view = new BrowserView()
     mainWin.setBrowserView(view)
@@ -62,4 +71,10 @@ app.on("ready", () => {
     mainWin.on("closed", () => {
         mainWin = null
     })
+})
+
+// 注销快捷键   这里是全局快捷键
+app.on("will-quit", function () {
+    globalShortcut.unregister("ctrl+e")
+    globalShortcut.unregisterAll()
 })
