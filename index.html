@@ -17,6 +17,10 @@
     <button class="saveBtn">保存文件</button>
     <button class="msgBtn">消息对话框</button>
     <button class="notifyBtn">底部通知</button>
+    <div>
+      激活码：<span class="code">234234234激活码</span>
+      <button class="copyBtn">复制激活码</button>
+    </div>
     <div class="childrenContent"></div>
     <a href="https:jspang.com" class="aTag" target="blank">博客地址</a>
     <script>
@@ -160,6 +164,15 @@
           titel: "自定义通知2",
           body: "自定义通知内容",
         });
+      };
+
+      // 剪切板的使用
+      const code = document.querySelector(".code");
+      const codeBtn = document.querySelector(".copyBtn");
+      const { clipboard } = electron;
+      codeBtn.onclick = function () {
+        clipboard.writeText(code.innerHTML);
+        alert("复制成功");
       };
     </script>
   </body>
