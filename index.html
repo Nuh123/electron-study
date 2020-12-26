@@ -9,6 +9,7 @@
 <body>
     <h1>hello world</h1>
     <div class="holder" style="width: 100px;height: 50px;background-color: aqua;"></div>
+    <a href="https:\\baidu.com">学习shell对象</a>
     <script>
         // 进程对象
         console.log('env',process.env)
@@ -35,6 +36,23 @@
         content.addEventListener("dragover", e => {
             e.preventDefault()
         })
+
+
+        // shell对象
+        const aTag = document.querySelector("a")
+        const {shell} = require("electron")
+        aTag.addEventListener("click",e => {
+            e.preventDefault()
+            const target = aTag.getAttribute("href")
+            console.log(aTag,shell)
+            console.log(target)
+            // shell.openExternal(target)  //使用默认程序处理url，所以官网强调带协议。有第二个参数，
+            // shell.openPath("index.html")   //使用默认程序打开文件，本地类的
+            // shell.showItemInFolder(".gitignore")  //资源管理器中打开文件
+            // shell.moveItemToTrash(".gitignore")  // 移动到回收站，和上面一个一样没玩起来，主要是这里要求fullPath
+            shell.beep()   //播放提示音
+        })
+        
     </script>
 </body>
 </html>
