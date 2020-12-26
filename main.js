@@ -8,7 +8,8 @@ function creatWindow () {
         width: 500,
         height: 500,
         webPreferences:{
-            nodeIntegration:true
+            nodeIntegration:true,
+            webviewTag:true,
         }
     })
     mainWin.loadFile(path.join("index.html"))
