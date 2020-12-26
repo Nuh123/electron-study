@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>hello world</h1>
+    <div class="holder" style="width: 100px;height: 50px;background-color: aqua;"></div>
     <script>
         // 进程对象
         console.log('env',process.env)
@@ -16,6 +17,24 @@
         console.log('version',process.version)
         console.log('versions',process.versions)
         console.log('process',process)
+
+        // 文件对象
+        const content = document.querySelector(".holder")
+        content.addEventListener("drop",e => {
+            e.preventDefault() //阻止默认行为
+            console.log(e.dataTransfer)
+            console.log(e.dataTransfer.files)
+            // 这里注意一下H5原生file实列和electron中file实例的区别，有两个新增属性。
+            // 另，files属性是一个临时状态。
+            const files = e.dataTransfer.files
+            if(files && files.length > 0) {
+                const path = files[0].path
+                console.log(path)
+            }
+        })
+        content.addEventListener("dragover", e => {
+            e.preventDefault()
+        })
     </script>
 </body>
 </html>
