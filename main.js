@@ -5,6 +5,9 @@ const path = require("path")
 
 function creatWindow () {
     mainWin = new BrowserWindow({
+        backgroundColor:"#ff0",
+        // frame:false,
+        // transparent:true,
         width: 500,
         height: 500,
         webPreferences:{
