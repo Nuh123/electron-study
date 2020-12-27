@@ -10,6 +10,7 @@
     <h1>hello world</h1>
     <div class="holder" style="width: 100px;height: 50px;background-color: aqua;"></div>
     <a href="https:\\baidu.com">学习shell对象</a>
+    <button class="ipcBtn">触发ipc</button>
     <script>
         // 进程对象
         console.log('env',process.env)
@@ -82,6 +83,16 @@
         e.preventDefault();
         menu.popup({ window: remote.getCurrentWindow() });
       });
+
+      // ipc通信
+      const {ipcRenderer} = require("electron")
+      const ipcBtn = document.querySelector(".ipcBtn")
+      ipcBtn.addEventListener("click", () => {
+        ipcRenderer.send("selfEventa","渲染进程触发")
+      })
+      ipcRenderer.on("selfEventb",(e,data) => {
+        console.log("渲染进程get数据" + JSON.parse(data))
+      })
     </script>
 </body>
 </html>

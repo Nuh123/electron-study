@@ -1,5 +1,5 @@
 const console = require("console")
-const { app, BrowserWindow, BrowserView, Menu } = require("electron")
+const { app, BrowserWindow, BrowserView, Menu,ipcMain } = require("electron")
 // 使用node处理路径问题
 const path = require("path")
 
@@ -36,12 +36,18 @@ let mainWin = null
 app.whenReady().then(() => {
     require("./menu")
     creatWindow()
-
+    console.log(ipcMain)
 })
 // 关闭应用时的操作
 app.on("window-all-closed", function () {
     mainWin = null
     app.quit()
+})
+
+ipcMain.on("selfEventa",(e,data) => {
+    console.log("main process get data:" + data )
+    // e.reply("selfEventb","主机程回复")
+    e.sender.send("selfEventb","主机程回复")
 })
 
 app.on("reday", function () {
