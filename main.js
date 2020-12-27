@@ -1,28 +1,31 @@
 const console = require("console")
-const { app, BrowserWindow, BrowserView } = require("electron")
+const { app, BrowserWindow, BrowserView, Menu } = require("electron")
 // 使用node处理路径问题
 const path = require("path")
 
 function creatWindow() {
     mainWin = new BrowserWindow({
         backgroundColor: "#ff0",
+        icon: "./icon.png",
         // frame:false,
         // transparent:true,
         width: 500,
         height: 500,
         webPreferences: {
+            enableRemoteModule: true,
             nodeIntegration: true,
             webviewTag: true,
         }
     })
-    // mainWin.loadFile(path.join("index.html"))
-    mainWin.loadURL('https://baidu.com')
+    // Menu.setApplicationMenu(null)
+    mainWin.loadFile(path.join("index.html"))
+    // mainWin.loadURL('https://baidu.com')
     // 与视频有出入，和顺序无关。
     mainWin.webContents.openDevTools()
 
     // BrowserView 对象
     const view = new BrowserView()
-    mainWin.setBrowserView(view)
+    // mainWin.setBrowserView(view)
     view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
     view.webContents.loadFile(path.join("index.html"))
 }
@@ -30,7 +33,11 @@ let mainWin = null
 
 // 新式的写法，与之前的app.on("ready")类似
 // 另 promise的then方法会自己执行，不需要加括号。
-app.whenReady().then(creatWindow)
+app.whenReady().then(() => {
+    require("./menu")
+    creatWindow()
+
+})
 // 关闭应用时的操作
 app.on("window-all-closed", function () {
     mainWin = null

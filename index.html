@@ -53,6 +53,35 @@
             shell.beep()   //播放提示音
         })
         
+        // 上下文菜单
+      const remote = require("electron").remote;
+      const { Menu, MenuItem } = remote;
+      let menu = new Menu();
+      menu.append(
+        new MenuItem({
+          label: "右键菜单1",
+          click() {
+            console.log("点击右键菜单1");
+          },
+        })
+      );
+      menu.append(
+        new MenuItem({
+          //   不知道这个设置是干嘛的。
+          type: "separator",
+        })
+      );
+      menu.append(
+        new MenuItem({
+          label: "右键菜单2",
+          type: "checkbox",
+          checked: true,
+        })
+      );
+      window.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        menu.popup({ window: remote.getCurrentWindow() });
+      });
     </script>
 </body>
 </html>
